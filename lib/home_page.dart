@@ -25,12 +25,20 @@ class _HomePageState extends State<HomePage> {
   }
 
   @override
+  void dispose() {
+    _stateMachineController?.dispose();
+    _stateMachineController = null;
+
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
       body: Column(
         children: [
-          if (_artboard != null)
+          if (_artboard != null) ...[
             AspectRatio(
               aspectRatio: 1,
               child: Rive(
@@ -38,38 +46,46 @@ class _HomePageState extends State<HomePage> {
                 artboard: _artboard!,
               ),
             ),
-          ElevatedButton(
-            onPressed: () {
-              _resetToIdle();
-              setState(() {
-                _flyInput?.value = !(_flyInput?.value ?? false);
-              });
-            },
-            child: const Text('Fly'),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              _resetToIdle();
-              setState(() {
-                _waveInput?.value = !(_waveInput?.value ?? false);
-              });
-            },
-            child: const Text('Wave'),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              _resetToIdle();
-              setState(() {
-                _winkInput?.value = !(_winkInput?.value ?? false);
-              });
-            },
-            child: const Text('Wink'),
-          ),
-          ElevatedButton(
-            onPressed: () => _resetToIdle(),
-            style: ElevatedButton.styleFrom(backgroundColor: Colors.red.shade300),
-            child: const Text('Reset to Idle'),
-          ),
+            ElevatedButton(
+              onPressed: () {
+                _resetToIdle();
+                setState(() {
+                  _flyInput?.value = !(_flyInput?.value ?? false);
+                });
+              },
+              child: const Text('Fly'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                _resetToIdle();
+                setState(() {
+                  _waveInput?.value = !(_waveInput?.value ?? false);
+                });
+              },
+              child: const Text('Wave'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                _resetToIdle();
+                setState(() {
+                  _winkInput?.value = !(_winkInput?.value ?? false);
+                });
+              },
+              child: const Text('Wink'),
+            ),
+            ElevatedButton(
+              onPressed: () => _resetToIdle(),
+              style: ElevatedButton.styleFrom(backgroundColor: Colors.red.shade300),
+              child: const Text('Reset to Idle'),
+            ),
+          ] else ...[
+            const Text(
+              'Loading...',
+              style: TextStyle(
+                color: Colors.white,
+              ),
+            )
+          ]
         ],
       ),
     );
