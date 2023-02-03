@@ -37,8 +37,21 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       backgroundColor: Colors.black,
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           if (_artboard != null) ...[
+            SizedBox(
+              width: MediaQuery.of(context).size.width / 2,
+              height: MediaQuery.of(context).size.width / 2,
+              child: const RiveAnimation.asset(
+                'assets/animations/dash.riv',
+                fit: BoxFit.cover,
+                animations: ['Fly'],
+              ),
+            ),
+            const Divider(
+              color: Colors.white,
+            ),
             AspectRatio(
               aspectRatio: 1,
               child: Rive(
@@ -46,32 +59,37 @@ class _HomePageState extends State<HomePage> {
                 artboard: _artboard!,
               ),
             ),
-            ElevatedButton(
-              onPressed: () {
-                _resetToIdle();
-                setState(() {
-                  _flyInput?.value = !(_flyInput?.value ?? false);
-                });
-              },
-              child: const Text('Fly'),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                _resetToIdle();
-                setState(() {
-                  _waveInput?.value = !(_waveInput?.value ?? false);
-                });
-              },
-              child: const Text('Wave'),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                _resetToIdle();
-                setState(() {
-                  _winkInput?.value = !(_winkInput?.value ?? false);
-                });
-              },
-              child: const Text('Wink'),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                ElevatedButton(
+                  onPressed: () {
+                    _resetToIdle();
+                    setState(() {
+                      _flyInput?.value = !(_flyInput?.value ?? false);
+                    });
+                  },
+                  child: const Text('Fly'),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    _resetToIdle();
+                    setState(() {
+                      _waveInput?.value = !(_waveInput?.value ?? false);
+                    });
+                  },
+                  child: const Text('Wave'),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    _resetToIdle();
+                    setState(() {
+                      _winkInput?.value = !(_winkInput?.value ?? false);
+                    });
+                  },
+                  child: const Text('Wink'),
+                ),
+              ],
             ),
             ElevatedButton(
               onPressed: () => _resetToIdle(),
