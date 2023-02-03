@@ -49,6 +49,12 @@ class _HomePageState extends State<HomePage> {
                 animations: ['Fly'],
               ),
             ),
+            const Text(
+              'Fly',
+              style: TextStyle(
+                color: Colors.white,
+              ),
+            ),
             const Divider(
               color: Colors.white,
             ),
